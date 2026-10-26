@@ -36,26 +36,6 @@ npx serve -l 8080 .
 
 ---
 
-## 🎮 How to Customize the Friend's Name
-
-Open `js/config.js` and change `friendName`:
-
-```javascript
-// file: js/config.js
-export const CONFIG = {
-  // Replace "ALEXANDER" with your friend's name!
-  friendName: "ALEXANDER",
-
-  // Birthday message and certificate text
-  birthdayMessage: "Happy Birthday!",
-  certificateTitle: "CERTIFICATE OF ENGINEERING EXCELLENCE",
-  certificateSubtitle: "PROJECT ZERO // SPECIAL RECOGNITION",
-  ...
-};
-```
-Save the file and refresh your browser. The personalized certificate in the final room will automatically display the updated name!
-
----
 
 ## 🕹️ The Five Engineering Challenges
 
