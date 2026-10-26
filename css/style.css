@@ -1,0 +1,490 @@
+/**
+ * PROJECT ZERO — Core 2D Styling & Facility Theme
+ * Industrial dark engineering palette, technical typography, and 2D blast door animations.
+ */
+
+:root {
+  --bg-dark: #090c10;
+  --bg-panel: rgba(18, 22, 31, 0.92);
+  --steel-dark: #161b22;
+  --steel-border: #30363d;
+  --steel-border-light: #484f58;
+
+  --accent-green: #00e676;
+  --accent-green-glow: rgba(0, 230, 118, 0.35);
+  --accent-cyan: #38bdf8;
+  --accent-amber: #ffb300;
+  --accent-red: #ff1744;
+  --accent-gold: #ffd700;
+
+  --text-main: #f0f6fc;
+  --text-muted: #8b949e;
+  --text-bright: #ffffff;
+
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+#app-root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Bar */
+#header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--safe-top) + 12px) 20px 12px 20px;
+  background: rgba(13, 17, 23, 0.95);
+  border-bottom: 1px solid var(--steel-border);
+  z-index: 50;
+}
+
+.header-left, .header-center, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent-green);
+  text-transform: uppercase;
+}
+
+#hud-room-title {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-bright);
+}
+
+#hud-objective {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 4px 10px;
+  border-left: 2px solid var(--accent-cyan);
+}
+
+.hud-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--steel-dark);
+  border: 1px solid var(--steel-border);
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.hud-pill .label {
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.hud-pill .value {
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.icon-btn {
+  background: var(--steel-dark);
+  border: 1px solid var(--steel-border);
+  color: var(--text-main);
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  border-color: var(--accent-green);
+}
+
+.icon-btn.muted {
+  opacity: 0.5;
+}
+
+/* Technical Buttons */
+.tech-btn {
+  background: var(--steel-dark);
+  border: 1px solid var(--steel-border);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 10px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.tech-btn:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  box-shadow: 0 0 12px var(--accent-green-glow);
+}
+
+.tech-btn:active {
+  transform: translateY(1px);
+}
+
+.tech-btn.primary {
+  background: var(--accent-green);
+  color: #0b0e14;
+  border-color: var(--accent-green);
+  font-weight: 700;
+}
+
+.tech-btn.primary:hover {
+  background: #22f88a;
+  box-shadow: 0 0 16px rgba(0, 230, 118, 0.5);
+}
+
+/* 2D Room Viewport Container */
+#room-viewport {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Confetti overlay canvas for Reward Room */
+#confetti-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 75;
+}
+
+/* ==========================================================================
+   OPENING SEQUENCE SCREEN
+   ========================================================================== */
+#screen-opening {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(17, 24, 39, 0.8) 0%, rgba(9, 12, 16, 0.98) 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  padding: 20px;
+}
+
+.opening-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--steel-border);
+  border-top: 3px solid var(--accent-green);
+  padding: 44px 36px;
+  border-radius: 6px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 230, 118, 0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.opening-subtitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--accent-green);
+  margin-bottom: 12px;
+}
+
+.opening-title {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--text-bright);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.opening-tagline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.system-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 179, 0, 0.1);
+  border: 1px solid rgba(255, 179, 0, 0.4);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--accent-amber);
+  margin-bottom: 32px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-amber);
+  border-radius: 50%;
+  animation: pulseAmber 1.6s infinite ease-in-out;
+}
+
+@keyframes pulseAmber {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.btn-enter-facility {
+  width: 100%;
+  font-size: 14px;
+  padding: 16px;
+  letter-spacing: 3px;
+}
+
+/* ==========================================================================
+   2D MECHANICAL BLAST DOOR OVERLAY
+   ========================================================================== */
+#blast-door-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 70;
+  display: flex;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.door-panel {
+  flex: 1;
+  height: 100%;
+  background: #161b22;
+  border: 4px solid #21262d;
+  position: relative;
+  transition: transform 0.85s cubic-bezier(0.77, 0, 0.175, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 20px;
+}
+
+#door-panel-left {
+  border-right: 3px solid #30363d;
+}
+
+#door-panel-right {
+  border-left: 3px solid #30363d;
+}
+
+/* Retracting Mechanical Locking Bolts */
+.locking-bolt {
+  position: absolute;
+  width: 32px;
+  height: 14px;
+  background: #cbd5e1;
+  border: 2px solid #475569;
+  border-radius: 2px;
+  transition: transform 0.45s ease-in-out;
+}
+
+#bolt-left-top { top: 25%; right: 0; }
+#bolt-left-bottom { bottom: 25%; right: 0; }
+#bolt-right-top { top: 25%; left: 0; }
+#bolt-right-bottom { bottom: 25%; left: 0; }
+
+#blast-door-overlay.bolts-retracted #bolt-left-top,
+#blast-door-overlay.bolts-retracted #bolt-left-bottom {
+  transform: translateX(-24px);
+}
+#blast-door-overlay.bolts-retracted #bolt-right-top,
+#blast-door-overlay.bolts-retracted #bolt-right-bottom {
+  transform: translateX(24px);
+}
+
+/* Door Sliding Animation */
+#blast-door-overlay.opened #door-panel-left {
+  transform: translateX(-100%);
+}
+#blast-door-overlay.opened #door-panel-right {
+  transform: translateX(100%);
+}
+
+/* Hazard Yellow Stripes */
+.hazard-stripe-bar {
+  width: 100%;
+  height: 24px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ffb300,
+    #ffb300 16px,
+    #111827 16px,
+    #111827 32px
+  );
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+/* Door Center Stencil Sign */
+.door-sign-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0d1117;
+  border: 2px solid var(--steel-border);
+  padding: 14px 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
+
+.door-status-led {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  box-shadow: 0 0 10px var(--accent-red);
+  transition: all 0.3s ease;
+}
+
+.door-status-led.unlocked {
+  background: var(--accent-green);
+  box-shadow: 0 0 12px var(--accent-green);
+}
+
+#door-label-text {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--text-bright);
+}
+
+.door-skip-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 17, 23, 0.85);
+  border: 1px solid var(--steel-border);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.door-skip-btn:hover {
+  color: var(--text-bright);
+  border-color: var(--text-bright);
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   ========================================================================== */
+#toast-container {
+  position: fixed;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--bg-panel);
+  border: 1px solid var(--steel-border);
+  border-radius: 4px;
+  padding: 10px 18px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.25s ease;
+}
+
+.toast.toast-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast .toast-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.toast-info { border-left: 3px solid var(--accent-cyan); }
+.toast-info .toast-indicator { background: var(--accent-cyan); }
+
+.toast-success { border-left: 3px solid var(--accent-green); }
+.toast-success .toast-indicator { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+
+.toast-warning { border-left: 3px solid var(--accent-amber); }
+.toast-warning .toast-indicator { background: var(--accent-amber); }
+
+.hidden {
+  display: none !important;
+}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>PROJECT ZERO — The Engineer's Playground (2D Edition)</title>
+  <meta name="description" content="A clean, responsive 2D interactive engineering birthday adventure featuring Chess, Go-Kart racing, Drones, Jet engines, and CAD mechanical design.">
+
+  <!-- Application Stylesheets -->
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/games.css">
+</head>
+<body>
+  <div id="app-root">
+    <!-- Header Bar -->
+    <header id="header-bar">
+      <div class="header-left">
+        <div class="header-title-box">
+          <span class="brand-label">PROJECT ZERO</span>
+          <span id="hud-room-title">FACILITY ENTRANCE</span>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <span id="hud-objective">OBJECTIVE: ENTER FACILITY</span>
+      </div>
+
+      <div class="header-right">
+        <div class="hud-pill">
+          <span class="label">SCORE</span>
+          <span id="hud-score" class="value">00000</span>
+        </div>
+        <div class="hud-pill">
+          <span class="label">TIME</span>
+          <span id="hud-timer" class="value">00:00</span>
+        </div>
+        <button id="btn-sound-toggle" class="icon-btn" title="Toggle Audio" aria-label="Toggle Audio">
+          <span id="sound-icon">🔊</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main 2D Room Viewport -->
+    <main id="room-viewport"></main>
+
+    <!-- 2D Celebratory Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- 1. Opening Sequence Screen -->
+    <section id="screen-opening">
+      <div class="opening-card">
+        <div class="opening-subtitle">SECURE RESEARCH FACILITY</div>
+        <h1 class="opening-title">PROJECT ZERO</h1>
+        <p class="opening-tagline">THE ENGINEER'S PLAYGROUND</p>
+
+        <div class="system-status-indicator">
+          <span class="status-dot"></span>
+          <span>SYSTEM STATUS: STANDBY</span>
+        </div>
+
+        <button id="btn-enter-facility" class="tech-btn primary btn-enter-facility">
+          ENTER FACILITY
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. 2D Mechanical Blast Door Overlay -->
+    <div id="blast-door-overlay" class="hidden">
+      <!-- Left Panel -->
+      <div id="door-panel-left" class="door-panel">
+        <div class="hazard-stripe-bar"></div>
+        <div class="locking-bolt" id="bolt-left-top"></div>
+        <div class="locking-bolt" id="bolt-left-bottom"></div>
+        <div class="hazard-stripe-bar"></div>
+      </div>
+
+      <!-- Center Stencil Sign & Status LEDs -->
+      <div class="door-sign-center">
+        <div class="door-status-led"></div>
+        <span id="door-label-text">GATE 01 // CHESS PROTOCOL</span>
+        <div class="door-status-led"></div>
+      </div>
+
+      <button id="btn-door-skip" class="door-skip-btn">SKIP &gt;&gt;</button>
+
+      <!-- Right Panel -->
+      <div id="door-panel-right" class="door-panel">
+        <div class="hazard-stripe-bar"></div>
+        <div class="locking-bolt" id="bolt-right-top"></div>
+        <div class="locking-bolt" id="bolt-right-bottom"></div>
+        <div class="hazard-stripe-bar"></div>
+      </div>
+    </div>
+
+    <!-- Bottom Challenge Toolbars -->
+
+    <!-- Challenge 1: Chess Protocol HUD -->
+    <div id="hud-chess" class="game-hud-bottom hidden">
+      <span id="chess-move-count" class="chess-badge">MOVE 0 / 3</span>
+      <button id="btn-chess-hint" class="tech-btn">HINT</button>
+      <button id="btn-chess-reset" class="tech-btn">RELOAD POSITION</button>
+    </div>
+
+    <!-- Challenge 2: Kart-X Racing HUD -->
+    <div id="hud-racing" class="hidden" style="position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 25;">
+      <div class="racing-stats-bar">
+        <span id="racing-position" class="racing-pos-badge">1ST / 3</span>
+        <span id="racing-lap" class="racing-lap-badge">LAP 1 / 3</span>
+        <span id="racing-speed" class="racing-speed-badge">0 KM/H</span>
+        <button id="btn-racing-retry" class="tech-btn">RETRY RACE</button>
+      </div>
+
+      <!-- Mobile Touch Controls for Kart -->
+      <div id="racing-touchpad">
+        <div class="touch-steering-group">
+          <button id="btn-kart-left" class="touch-btn" aria-label="Steer Left" title="Steer Left">◀</button>
+          <button id="btn-kart-right" class="touch-btn" aria-label="Steer Right" title="Steer Right">▶</button>
+        </div>
+        <div class="touch-pedals-group">
+          <button id="btn-kart-brake" class="touch-btn brake-btn" aria-label="Brake" title="Brake / Reverse">🛑 BRAKE</button>
+          <button id="btn-kart-gas" class="touch-btn gas-btn" aria-label="Accelerate" title="Accelerate (Gas)">⚡ GAS</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Challenge 3: Drone Flight Test HUD -->
+    <div id="hud-drone" class="hidden" style="position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 25;">
+      <div class="drone-stats-bar">
+        <span id="drone-checkpoint-count" class="drone-stat">GATE 1 / 4</span>
+        <span id="drone-altitude" class="drone-stat">ALT: 0.4 M</span>
+        <button id="btn-drone-reset" class="tech-btn">RECOVER DRONE</button>
+      </div>
+
+      <!-- Mobile Touch Controls for Drone -->
+      <div id="drone-touchpad">
+        <div class="drone-dpad">
+          <div></div>
+          <button id="btn-drone-fwd" class="touch-btn" aria-label="Forward">▲</button>
+          <div></div>
+          <button id="btn-drone-left" class="touch-btn" aria-label="Left">◀</button>
+          <div class="touch-btn dpad-center"></div>
+          <button id="btn-drone-right" class="touch-btn" aria-label="Right">▶</button>
+          <div></div>
+          <button id="btn-drone-back" class="touch-btn" aria-label="Backward">▼</button>
+          <div></div>
+        </div>
+
+        <div class="drone-altitude-group">
+          <button id="btn-drone-up" class="touch-btn gas-btn" aria-label="Ascend">▲ UP</button>
+          <button id="btn-drone-down" class="touch-btn brake-btn" aria-label="Descend">▼ DOWN</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Challenge 4: Jet Engine Ignition HUD -->
+    <div id="hud-engine" class="game-hud-bottom hidden">
+      <div class="engine-control-panel">
+        <div class="thrust-meter-box">
+          <div class="thrust-labels">
+            <span>ENGINE THRUST</span>
+            <span id="engine-thrust-val">0% (0 kN)</span>
+          </div>
+          <div class="thrust-track">
+            <div id="engine-thrust-bar"></div>
+          </div>
+        </div>
+
+        <div id="engine-slots">
+          <!-- Populated dynamically -->
+        </div>
+
+        <div id="engine-tray">
+          <!-- Component chips: Compressor, Combustion Chamber, Turbine, Exhaust Nozzle -->
+        </div>
+
+        <button id="btn-engine-ignite" class="tech-btn primary btn-ignite">
+          INITIATE IGNITION
+        </button>
+      </div>
+    </div>
+
+    <!-- Challenge 5: CAD Assembly Workshop HUD -->
+    <div id="hud-cad" class="game-hud-bottom hidden">
+      <div class="cad-panel">
+        <div class="cad-hint-bar">
+          SOLIDWORKS 2D MATES // SELECT PART &amp; CLICK SNAP
+        </div>
+
+        <div id="cad-parts-tray">
+          <!-- Populated dynamically -->
+        </div>
+
+        <button id="btn-cad-assemble" class="tech-btn primary">
+          SNAP &amp; MATE COMPONENT
+        </button>
+      </div>
+    </div>
+
+    <!-- Final Room: Birthday Reward & Certificate -->
+    <section id="screen-reward" class="hidden">
+      <div class="certificate-card">
+        <!-- 2D Metallic Trophy Icon -->
+        <div class="trophy-svg-container">
+          <svg viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="24" r="14" stroke="#ffd700" stroke-width="4" stroke-dasharray="6 2"/>
+            <circle cx="32" cy="24" r="8" fill="#ffd700"/>
+            <path d="M16 20C10 24 10 36 18 42L32 50L46 42C54 36 54 24 48 20" stroke="#f0f6fc" stroke-width="3" stroke-linecap="round"/>
+            <path d="M26 50V58H38V50" stroke="#ffd700" stroke-width="3"/>
+            <path d="M20 58H44" stroke="#ffd700" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="cert-header-tag">PROJECT ZERO // SPECIAL RECOGNITION</div>
+        <h2 class="cert-main-title">CERTIFICATE OF ENGINEERING EXCELLENCE</h2>
+        <div class="cert-awarded-text">Awarded to</div>
+
+        <div id="cert-recipient-name">ALEXANDER</div>
+
+        <p class="cert-description">
+          For successfully completing the Chess Protocol, Kart-X Racing Trial, 
+          Drone Flight Test, Jet Engine Ignition, and CAD Assembly Workshop.
+        </p>
+
+        <div class="cert-status-badge">
+          <span>FINAL STATUS: ENGINEER UNLOCKED</span>
+          <span>// ALL CHALLENGES PASSED</span>
+        </div>
+
+        <div id="cert-score-breakdown">
+          <!-- Breakdown of times and points -->
+        </div>
+
+        <div class="cert-footer-stats">
+          <div class="cert-stat-item">
+            <div class="stat-lbl">TOTAL SCORE</div>
+            <div id="cert-total-score" class="stat-val">5000 PTS</div>
+          </div>
+          <div class="cert-stat-item">
+            <div class="stat-lbl">COMPLETION TIME</div>
+            <div id="cert-total-time" class="stat-val">180s</div>
+          </div>
+        </div>
+
+        <div class="cert-birthday-greeting">
+          Happy Birthday!
+        </div>
+
+        <div class="cert-actions">
+          <button id="btn-toggle-cert-view" class="tech-btn">FULLSCREEN CERTIFICATE</button>
+          <button id="btn-replay" class="tech-btn primary">REPLAY ADVENTURE</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+  </div>
+
+  <!-- Main ES Module Script -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

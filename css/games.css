@@ -1,0 +1,990 @@
+/**
+ * PROJECT ZERO — 2D Mini-Games & Mobile Touch Optimization
+ * Detailed styling for Staunton Chessboard, Racing Briefing & Touchpads,
+ * Drone Navigation, Engine Blueprint, CAD Workshop, and Certificate.
+ */
+
+/* ==========================================================================
+   CHALLENGE 1: STAUNTON CHESS PROTOCOL
+   ========================================================================== */
+.chess-room-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 520px;
+  width: 95vw;
+}
+
+.chess-guide-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--steel-border);
+  border-left: 3px solid var(--accent-green);
+  padding: 10px 16px;
+  border-radius: 4px;
+  text-align: center;
+  width: 100%;
+}
+
+.guide-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--accent-green);
+  margin-bottom: 4px;
+}
+
+.guide-steps {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.step-badge {
+  background: var(--accent-green);
+  color: #0b0e14;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.board-frame {
+  background: #1e293b;
+  border: 4px solid #334155;
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board-coords-horiz {
+  display: flex;
+  justify-content: space-around;
+  width: min(82vw, 420px);
+  padding: 4px 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.board-middle-row {
+  display: flex;
+  align-items: center;
+}
+
+.board-coords-vert {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: min(82vw, 420px);
+  padding: 0 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.chessboard-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: min(82vw, 420px);
+  height: min(82vw, 420px);
+  border: 2px solid #0f172a;
+}
+
+.chess-sq {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* Wood / Slate High-Contrast Squares */
+.chess-sq.light {
+  background-color: #f1f5f9;
+}
+
+.chess-sq.dark {
+  background-color: #475569;
+}
+
+.chess-sq.selected {
+  background-color: #0284c7 !important;
+  box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.8);
+}
+
+.chess-sq.target-move::after {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-green);
+  animation: pulseTarget 1s infinite alternate;
+}
+
+@keyframes pulseTarget {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+.chess-sq.target-capture::after {
+  content: '';
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--accent-red);
+  border-radius: 50%;
+  animation: pulseCapture 0.8s infinite alternate;
+}
+
+@keyframes pulseCapture {
+  0% { transform: scale(0.9); }
+  100% { transform: scale(1.1); }
+}
+
+.chess-sq.checkmate-glow {
+  background-color: #ef4444 !important;
+  animation: checkmatePulse 1s infinite alternate;
+}
+
+@keyframes checkmatePulse {
+  0% { box-shadow: inset 0 0 10px #ffffff; }
+  100% { box-shadow: inset 0 0 25px #ffffff; }
+}
+
+.piece-wrapper {
+  width: 88%;
+  height: 88%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.piece-wrapper:hover {
+  transform: scale(1.08);
+}
+
+.piece-wrapper svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.6));
+}
+
+.chess-selection-hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 6px 14px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.chess-badge {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--accent-green);
+  background: rgba(0, 230, 118, 0.1);
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+/* ==========================================================================
+   CHALLENGE 2: KART-X RACING TRIAL & BRIEFING MODAL
+   ========================================================================== */
+.racing-room-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+}
+
+.racing-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+}
+
+#racing-canvas {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border: 2px solid var(--steel-border);
+  border-radius: 6px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8);
+}
+
+/* Pre-Race Briefing Modal */
+.race-briefing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 14, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  padding: 16px;
+}
+
+.briefing-card {
+  background: #161b22;
+  border: 2px solid var(--steel-border);
+  border-top: 4px solid var(--accent-green);
+  border-radius: 8px;
+  padding: 28px 24px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+}
+
+.briefing-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent-green);
+  margin-bottom: 8px;
+}
+
+.briefing-title {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.briefing-goal {
+  background: rgba(0, 230, 118, 0.06);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  padding: 12px 14px;
+  border-radius: 6px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.briefing-win-rule {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: #f1f5f9;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.win-rule-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--accent-green);
+  text-transform: uppercase;
+}
+
+.win-rule-badge.alt {
+  color: #fbbf24;
+}
+
+.briefing-win-divider {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #64748b;
+  text-align: center;
+  margin: 6px 0;
+}
+
+.briefing-controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.control-col {
+  background: #0f141c;
+  border: 1px solid #30363d;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.key-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #cbd5e1;
+}
+
+.btn-start-race {
+  width: 100%;
+  font-size: 15px;
+  padding: 14px;
+  letter-spacing: 2px;
+}
+
+/* Countdown Overlay */
+.race-countdown-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 14, 20, 0.4);
+  z-index: 35;
+  pointer-events: none;
+}
+
+.countdown-text {
+  font-family: var(--font-mono);
+  font-size: 88px;
+  font-weight: 900;
+  color: #ffb300;
+  text-shadow: 0 0 30px rgba(255, 179, 0, 0.8);
+  animation: countdownPop 0.8s infinite ease-out;
+}
+
+@keyframes countdownPop {
+  0% { transform: scale(1.4); opacity: 0; }
+  40% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.desktop-controls-hint {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  display: flex;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid #334155;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+/* Dedicated Mobile Touchpads */
+#racing-touchpad, #drone-touchpad {
+  display: flex;
+  justify-content: space-between;
+  width: 95vw;
+  max-width: 520px;
+  padding: 6px 0;
+  pointer-events: auto;
+}
+
+.touch-steering-group, .touch-pedals-group {
+  display: flex;
+  gap: 12px;
+}
+
+.touch-btn {
+  width: 68px;
+  height: 68px;
+  background: #1e293b;
+  border: 2px solid #475569;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 800;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: none;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+  transition: transform 0.05s ease, background-color 0.1s ease;
+}
+
+.touch-btn:active, .touch-btn.active {
+  transform: scale(0.92);
+  background: var(--accent-green);
+  color: #0b0e14;
+  border-color: var(--accent-green);
+}
+
+.touch-btn.gas-btn {
+  background: rgba(0, 230, 118, 0.2);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+.touch-btn.gas-btn:active {
+  background: var(--accent-green);
+  color: #0b0e14;
+}
+
+.touch-btn.brake-btn {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+.touch-btn.brake-btn:active {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   CHALLENGE 3: DRONE FLIGHT TEST (2D)
+   ========================================================================== */
+.drone-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+}
+
+#drone-canvas {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border: 2px solid var(--steel-border);
+  border-radius: 6px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8);
+}
+
+.drone-dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 4px;
+}
+
+.dpad-center {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.drone-altitude-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+}
+
+.drone-stats-bar, .racing-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-panel);
+  border: 1px solid var(--steel-border);
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.racing-pos-badge, .drone-stat {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--accent-green);
+}
+
+.racing-lap-badge {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.racing-speed-badge {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+/* ==========================================================================
+   CHALLENGE 4: JET ENGINE IGNITION (2D)
+   ========================================================================== */
+.engine-room-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 760px;
+}
+
+.engine-canvas-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#engine-canvas {
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  aspect-ratio: 760 / 340;
+  border: 2px solid var(--steel-border);
+  border-radius: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+}
+
+#hud-engine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 95vw;
+  max-width: 620px;
+}
+
+.engine-control-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--steel-border);
+  padding: 14px 18px;
+  border-radius: 6px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.thrust-meter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.thrust-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.thrust-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(11, 14, 20, 0.9);
+  border: 1px solid var(--steel-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+#engine-thrust-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8 0%, #00e676 70%, #ff1744 100%);
+  transition: width 0.1s linear;
+}
+
+#engine-slots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.engine-slot {
+  background: rgba(22, 27, 34, 0.8);
+  border: 1px dashed var(--steel-border);
+  padding: 8px 4px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.engine-slot.filled {
+  border-style: solid;
+  border-color: var(--accent-green);
+  background: rgba(0, 230, 118, 0.08);
+}
+
+.engine-slot .slot-num {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.engine-slot .slot-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-bright);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#engine-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.engine-chip {
+  background: var(--steel-dark);
+  border: 1px solid var(--steel-border);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.engine-chip.active {
+  border-color: var(--accent-green);
+  background: rgba(0, 230, 118, 0.15);
+  color: var(--accent-green);
+}
+
+/* ==========================================================================
+   CHALLENGE 5: CAD ASSEMBLY WORKSHOP (2D)
+   ========================================================================== */
+.cad-room-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 760px;
+}
+
+.cad-canvas-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#cad-canvas {
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  aspect-ratio: 760 / 340;
+  border: 2px solid var(--steel-border);
+  border-radius: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+
+#hud-cad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 580px;
+  width: 95vw;
+}
+
+.cad-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--steel-border);
+  padding: 12px 16px;
+  border-radius: 6px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cad-hint-bar {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--accent-cyan);
+  text-align: center;
+}
+
+#cad-parts-tray {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.cad-part-btn {
+  background: var(--steel-dark);
+  border: 1px solid var(--steel-border);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cad-part-btn.active {
+  border-color: var(--accent-green);
+  background: rgba(0, 230, 118, 0.15);
+  color: var(--accent-green);
+}
+
+.cad-part-btn.assembled {
+  border-color: var(--steel-border);
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.cad-part-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--steel-border-light);
+}
+
+/* ==========================================================================
+   FINAL REWARD: BIRTHDAY CERTIFICATE (2D)
+   ========================================================================== */
+#screen-reward {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(17, 24, 39, 0.7) 0%, rgba(9, 12, 16, 0.98) 90%);
+  z-index: 80;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.certificate-card {
+  background: #0f141c;
+  border: 2px solid var(--accent-gold);
+  border-radius: 8px;
+  padding: 36px 32px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 215, 0, 0.15);
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 85;
+}
+
+.trophy-svg-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -6px;
+}
+
+.trophy-svg-container svg {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+}
+
+.cert-header-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--accent-green);
+  text-transform: uppercase;
+}
+
+.cert-main-title {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--accent-gold);
+  line-height: 1.2;
+}
+
+.cert-awarded-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+#cert-recipient-name {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #ffffff;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.5);
+  display: inline-block;
+  margin: 2px auto;
+  padding-bottom: 2px;
+}
+
+.cert-description {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: #c9d1d9;
+  line-height: 1.5;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.cert-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 230, 118, 0.1);
+  border: 1px solid rgba(0, 230, 118, 0.4);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent-green);
+  margin: 2px auto;
+}
+
+#cert-score-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(22, 27, 34, 0.8);
+  border: 1px solid var(--steel-border);
+  padding: 10px 14px;
+  border-radius: 4px;
+}
+
+.cert-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.breakdown-name { color: var(--text-main); }
+.breakdown-time { color: var(--text-muted); }
+.breakdown-score { color: var(--accent-green); font-weight: 700; }
+
+.cert-footer-stats {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid var(--steel-border);
+  padding-top: 10px;
+}
+
+.cert-stat-item .stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.cert-stat-item .stat-val {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--accent-gold);
+}
+
+.cert-birthday-greeting {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ff9100;
+}
+
+.cert-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Fullscreen Mode */
+.certificate-fullscreen-mode {
+  background: #090c10 !important;
+}
+.certificate-fullscreen-mode .certificate-card {
+  max-width: 760px;
+  padding: 48px;
+}
+.certificate-fullscreen-mode .cert-actions {
+  display: none;
+}
+
+/* Responsive Mobile Rules */
+@media (max-width: 768px) {
+  #header-bar {
+    padding: calc(var(--safe-top) + 8px) 12px 8px 12px;
+  }
+  .header-center { display: none; }
+  .desktop-controls-hint { display: none; }
+
+  /* Touch controls always prominent on mobile */
+  #racing-touchpad, #drone-touchpad {
+    display: flex !important;
+  }
+  .touch-btn {
+    width: 64px;
+    height: 64px;
+  }
+
+  .certificate-card { padding: 24px 16px; }
+  .cert-main-title { font-size: 18px; }
+  #cert-recipient-name { font-size: 24px; }
+  .briefing-controls-grid { grid-template-columns: 1fr; }
+}
