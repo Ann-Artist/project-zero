@@ -5,15 +5,92 @@
  */
 
 /* ==========================================================================
+   GATE GUIDE BANNER (Clear, Simple Instructions at Each Gate)
+   ========================================================================== */
+.gate-guide-banner {
+  background: var(--bg-panel);
+  border: 1px solid var(--steel-border);
+  border-left: 4px solid var(--accent-green);
+  border-radius: 6px;
+  padding: 10px 14px;
+  width: 100%;
+  max-width: 760px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.gate-guide-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.gate-guide-badge {
+  background: var(--accent-green);
+  color: #090c10;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+.gate-guide-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+}
+
+.gate-guide-target {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-left: auto;
+}
+
+.gate-guide-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.guide-step-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.guide-step-item .step-num {
+  color: var(--accent-green);
+  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
    CHALLENGE 1: STAUNTON CHESS PROTOCOL
    ========================================================================== */
 .chess-room-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   max-width: 520px;
-  width: 95vw;
+  width: 100%;
 }
 
 .chess-guide-card {
@@ -416,33 +493,34 @@
 #racing-touchpad, #drone-touchpad {
   display: flex;
   justify-content: space-between;
-  width: 95vw;
+  align-items: center;
+  width: 100%;
   max-width: 520px;
-  padding: 6px 0;
+  padding: 4px 0;
   pointer-events: auto;
 }
 
 .touch-steering-group, .touch-pedals-group {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .touch-btn {
-  width: 68px;
-  height: 68px;
+  width: 58px;
+  height: 54px;
   background: #1e293b;
   border: 2px solid #475569;
   color: #ffffff;
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   touch-action: none;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   transition: transform 0.05s ease, background-color 0.1s ease;
 }
 
@@ -457,6 +535,8 @@
   background: rgba(0, 230, 118, 0.2);
   border-color: var(--accent-green);
   color: var(--accent-green);
+  width: 68px;
+  font-size: 13px;
 }
 .touch-btn.gas-btn:active {
   background: var(--accent-green);
@@ -467,6 +547,8 @@
   background: rgba(239, 68, 68, 0.2);
   border-color: #ef4444;
   color: #ef4444;
+  width: 68px;
+  font-size: 13px;
 }
 .touch-btn.brake-btn:active {
   background: #ef4444;
@@ -492,13 +574,21 @@
   border: 2px solid var(--steel-border);
   border-radius: 6px;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8);
+  display: block;
 }
 
 .drone-dpad {
   display: grid;
-  grid-template-columns: repeat(3, 48px);
-  grid-template-rows: repeat(3, 48px);
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(3, 40px);
   gap: 4px;
+}
+
+.drone-dpad .touch-btn {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  border-radius: 6px;
 }
 
 .dpad-center {
@@ -514,15 +604,24 @@
   justify-content: center;
 }
 
+.drone-altitude-group .touch-btn {
+  width: 76px;
+  height: 40px;
+  font-size: 12px;
+}
+
 .drone-stats-bar, .racing-stats-bar {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 520px;
   background: var(--bg-panel);
   border: 1px solid var(--steel-border);
-  padding: 8px 16px;
+  padding: 6px 14px;
   border-radius: 6px;
   margin-bottom: 6px;
+  gap: 10px;
 }
 
 .racing-pos-badge, .drone-stat {
@@ -969,18 +1068,95 @@
 /* Responsive Mobile Rules */
 @media (max-width: 768px) {
   #header-bar {
-    padding: calc(var(--safe-top) + 8px) 12px 8px 12px;
+    padding: calc(var(--safe-top) + 6px) 10px 6px 10px;
   }
+  .header-left { gap: 8px; }
+  .header-right { gap: 6px; }
   .header-center { display: none; }
   .desktop-controls-hint { display: none; }
+  .hud-pill { padding: 4px 8px; font-size: 11px; }
+  #hud-room-title { font-size: 13px; }
 
-  /* Touch controls always prominent on mobile */
+  /* Gate Guide Banner on mobile */
+  .gate-guide-banner {
+    padding: 8px 10px;
+    margin-bottom: 8px;
+  }
+  .gate-guide-title { font-size: 12px; }
+  .gate-guide-target { font-size: 9px; padding: 1px 6px; }
+  .guide-step-item { font-size: 11px; }
+
+  /* Chess responsive */
+  .chessboard-grid, .board-coords-horiz {
+    width: min(84vw, 360px);
+  }
+  .chessboard-grid, .board-coords-vert {
+    height: min(84vw, 360px);
+  }
+
+  /* Engine responsive */
+  #engine-slots {
+    gap: 4px;
+  }
+  .engine-slot {
+    padding: 6px 2px;
+  }
+  .engine-slot .slot-val {
+    font-size: 10px;
+  }
+  .engine-chip {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  /* Touch controls always prominent and perfectly sized on mobile */
   #racing-touchpad, #drone-touchpad {
     display: flex !important;
+    max-width: 100%;
+    padding: 4px 0;
+  }
+  .touch-steering-group, .touch-pedals-group {
+    gap: 8px;
   }
   .touch-btn {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 48px;
+    font-size: 15px;
+  }
+  .touch-btn.gas-btn, .touch-btn.brake-btn {
+    width: 62px;
+    height: 48px;
+    font-size: 11px;
+  }
+
+  .drone-dpad {
+    grid-template-columns: repeat(3, 36px);
+    grid-template-rows: repeat(3, 36px);
+    gap: 3px;
+  }
+  .drone-dpad .touch-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+  }
+  .drone-altitude-group .touch-btn {
+    width: 68px;
+    height: 36px;
+    font-size: 11px;
+  }
+
+  .drone-stats-bar, .racing-stats-bar {
+    padding: 6px 10px;
+  }
+  .racing-pos-badge, .drone-stat {
+    font-size: 13px;
+  }
+  .racing-lap-badge {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+  .racing-speed-badge {
+    font-size: 12px;
   }
 
   .certificate-card { padding: 24px 16px; }

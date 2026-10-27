@@ -54,14 +54,39 @@ export class DroneGame2D {
 
   initDOM() {
     this.container.innerHTML = `
-      <div class="drone-canvas-wrapper">
-        <canvas id="drone-canvas" width="800" height="600"></canvas>
+      <div class="drone-room-box">
+        <!-- Simple Gate 3 Instructions Banner -->
+        <div class="gate-guide-banner">
+          <div class="gate-guide-header">
+            <span class="gate-guide-badge">GATE 03</span>
+            <span class="gate-guide-title">🚁 DRONE FLIGHT TEST</span>
+            <span class="gate-guide-target">4 GATES + SOFT TOUCHDOWN</span>
+          </div>
+          <div class="gate-guide-body">
+            <div class="guide-step-item">
+              <span class="step-num">1</span>
+              <span><b>Fly through Gates 1 ➔ 2 ➔ 3 ➔ 4</b> in sequence using the D-Pad (or W/A/S/D / Arrows).</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">2</span>
+              <span>Use <b>▲ UP / ▼ DOWN</b> (or Shift / Space) to control flight altitude.</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">3</span>
+              <span>Once all 4 gates are cleared, fly over the center green <b>[H] Helipad</b> and descend below 1.5m to land!</span>
+            </div>
+          </div>
+        </div>
 
-        <!-- On-screen Desktop Controls Hint -->
-        <div class="desktop-controls-hint">
-          <span>[W/A/S/D] or [ARROWS] FLY</span>
-          <span>[SHIFT/E] ASCEND</span>
-          <span>[SPACE/Q] DESCEND</span>
+        <div class="drone-canvas-wrapper">
+          <canvas id="drone-canvas" width="800" height="600"></canvas>
+
+          <!-- On-screen Desktop Controls Hint -->
+          <div class="desktop-controls-hint">
+            <span>[W/A/S/D] or [ARROWS] FLY</span>
+            <span>[SHIFT/E] ASCEND</span>
+            <span>[SPACE/Q] DESCEND</span>
+          </div>
         </div>
       </div>
     `;

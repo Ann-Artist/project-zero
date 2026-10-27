@@ -28,6 +28,29 @@ export class EngineGame2D {
   initDOM() {
     this.container.innerHTML = `
       <div class="engine-room-box">
+        <!-- Simple Gate 4 Instructions Banner -->
+        <div class="gate-guide-banner">
+          <div class="gate-guide-header">
+            <span class="gate-guide-badge">GATE 04</span>
+            <span class="gate-guide-title">🔥 JET ENGINE IGNITION</span>
+            <span class="gate-guide-target">BRAYTON CYCLE ASSEMBLY</span>
+          </div>
+          <div class="gate-guide-body">
+            <div class="guide-step-item">
+              <span class="step-num">1</span>
+              <span><b>Install the 4 components in order:</b> 1. Compressor ➔ 2. Combustion Chamber ➔ 3. Turbine ➔ 4. Exhaust Nozzle.</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">2</span>
+              <span><b>Tap a component chip</b> below, then tap a slot (or tap the engine stage on the blueprint directly).</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">3</span>
+              <span>When all 4 stages are mounted, tap <b>INITIATE IGNITION</b> to spool up to 100% thrust!</span>
+            </div>
+          </div>
+        </div>
+
         <div class="engine-canvas-container">
           <canvas id="engine-canvas" width="760" height="340"></canvas>
         </div>

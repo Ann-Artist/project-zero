@@ -6,6 +6,11 @@
   <title>PROJECT ZERO — The Engineer's Playground (2D Edition)</title>
   <meta name="description" content="A clean, responsive 2D interactive engineering birthday adventure featuring Chess, Go-Kart racing, Drones, Jet engines, and CAD mechanical design.">
 
+  <!-- Color scheme declaration: Enforces dark industrial theme across all devices -->
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#090c10">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <!-- Application Stylesheets -->
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/games.css">
@@ -39,9 +44,6 @@
         </button>
       </div>
     </header>
-
-    <!-- Main 2D Room Viewport -->
-    <main id="room-viewport"></main>
 
     <!-- 2D Celebratory Confetti Canvas -->
     <canvas id="confetti-canvas"></canvas>
@@ -92,109 +94,118 @@
       </div>
     </div>
 
-    <!-- Bottom Challenge Toolbars -->
+    <!-- Unified Responsive Game Workspace (Canvas & Controls stacked cleanly without overlap) -->
+    <main id="game-workspace">
+      <!-- 2D Room Viewport Container -->
+      <div id="room-viewport"></div>
 
-    <!-- Challenge 1: Chess Protocol HUD -->
-    <div id="hud-chess" class="game-hud-bottom hidden">
-      <span id="chess-move-count" class="chess-badge">MOVE 0 / 3</span>
-      <button id="btn-chess-hint" class="tech-btn">HINT</button>
-      <button id="btn-chess-reset" class="tech-btn">RELOAD POSITION</button>
-    </div>
-
-    <!-- Challenge 2: Kart-X Racing HUD -->
-    <div id="hud-racing" class="hidden" style="position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 25;">
-      <div class="racing-stats-bar">
-        <span id="racing-position" class="racing-pos-badge">1ST / 3</span>
-        <span id="racing-lap" class="racing-lap-badge">LAP 1 / 3</span>
-        <span id="racing-speed" class="racing-speed-badge">0 KM/H</span>
-        <button id="btn-racing-retry" class="tech-btn">RETRY RACE</button>
-      </div>
-
-      <!-- Mobile Touch Controls for Kart -->
-      <div id="racing-touchpad">
-        <div class="touch-steering-group">
-          <button id="btn-kart-left" class="touch-btn" aria-label="Steer Left" title="Steer Left">◀</button>
-          <button id="btn-kart-right" class="touch-btn" aria-label="Steer Right" title="Steer Right">▶</button>
-        </div>
-        <div class="touch-pedals-group">
-          <button id="btn-kart-brake" class="touch-btn brake-btn" aria-label="Brake" title="Brake / Reverse">🛑 BRAKE</button>
-          <button id="btn-kart-gas" class="touch-btn gas-btn" aria-label="Accelerate" title="Accelerate (Gas)">⚡ GAS</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Challenge 3: Drone Flight Test HUD -->
-    <div id="hud-drone" class="hidden" style="position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 25;">
-      <div class="drone-stats-bar">
-        <span id="drone-checkpoint-count" class="drone-stat">GATE 1 / 4</span>
-        <span id="drone-altitude" class="drone-stat">ALT: 0.4 M</span>
-        <button id="btn-drone-reset" class="tech-btn">RECOVER DRONE</button>
-      </div>
-
-      <!-- Mobile Touch Controls for Drone -->
-      <div id="drone-touchpad">
-        <div class="drone-dpad">
-          <div></div>
-          <button id="btn-drone-fwd" class="touch-btn" aria-label="Forward">▲</button>
-          <div></div>
-          <button id="btn-drone-left" class="touch-btn" aria-label="Left">◀</button>
-          <div class="touch-btn dpad-center"></div>
-          <button id="btn-drone-right" class="touch-btn" aria-label="Right">▶</button>
-          <div></div>
-          <button id="btn-drone-back" class="touch-btn" aria-label="Backward">▼</button>
-          <div></div>
-        </div>
-
-        <div class="drone-altitude-group">
-          <button id="btn-drone-up" class="touch-btn gas-btn" aria-label="Ascend">▲ UP</button>
-          <button id="btn-drone-down" class="touch-btn brake-btn" aria-label="Descend">▼ DOWN</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Challenge 4: Jet Engine Ignition HUD -->
-    <div id="hud-engine" class="game-hud-bottom hidden">
-      <div class="engine-control-panel">
-        <div class="thrust-meter-box">
-          <div class="thrust-labels">
-            <span>ENGINE THRUST</span>
-            <span id="engine-thrust-val">0% (0 kN)</span>
-          </div>
-          <div class="thrust-track">
-            <div id="engine-thrust-bar"></div>
+      <!-- Docked HUD Deck (Directly below canvas in natural document flow) -->
+      <div id="hud-deck">
+        <!-- Challenge 1: Chess Protocol HUD -->
+        <div id="hud-chess" class="game-hud-block hidden">
+          <div class="hud-action-row">
+            <span id="chess-move-count" class="chess-badge">MOVE 0 / 3</span>
+            <button id="btn-chess-hint" class="tech-btn">HINT</button>
+            <button id="btn-chess-reset" class="tech-btn">RELOAD POSITION</button>
           </div>
         </div>
 
-        <div id="engine-slots">
-          <!-- Populated dynamically -->
+        <!-- Challenge 2: Kart-X Racing HUD -->
+        <div id="hud-racing" class="game-hud-block hidden">
+          <div class="racing-stats-bar">
+            <span id="racing-position" class="racing-pos-badge">1ST / 3</span>
+            <span id="racing-lap" class="racing-lap-badge">LAP 1 / 3</span>
+            <span id="racing-speed" class="racing-speed-badge">0 KM/H</span>
+            <button id="btn-racing-retry" class="tech-btn">RETRY RACE</button>
+          </div>
+
+          <!-- Mobile Touch Controls for Kart -->
+          <div id="racing-touchpad">
+            <div class="touch-steering-group">
+              <button id="btn-kart-left" class="touch-btn" aria-label="Steer Left" title="Steer Left">◀</button>
+              <button id="btn-kart-right" class="touch-btn" aria-label="Steer Right" title="Steer Right">▶</button>
+            </div>
+            <div class="touch-pedals-group">
+              <button id="btn-kart-brake" class="touch-btn brake-btn" aria-label="Brake" title="Brake / Reverse">🛑 BRAKE</button>
+              <button id="btn-kart-gas" class="touch-btn gas-btn" aria-label="Accelerate" title="Accelerate (Gas)">⚡ GAS</button>
+            </div>
+          </div>
         </div>
 
-        <div id="engine-tray">
-          <!-- Component chips: Compressor, Combustion Chamber, Turbine, Exhaust Nozzle -->
+        <!-- Challenge 3: Drone Flight Test HUD -->
+        <div id="hud-drone" class="game-hud-block hidden">
+          <div class="drone-stats-bar">
+            <span id="drone-checkpoint-count" class="drone-stat">GATE 1 / 4</span>
+            <span id="drone-altitude" class="drone-stat">ALT: 0.4 M</span>
+            <button id="btn-drone-reset" class="tech-btn">RECOVER DRONE</button>
+          </div>
+
+          <!-- Mobile Touch Controls for Drone -->
+          <div id="drone-touchpad">
+            <div class="drone-dpad">
+              <div></div>
+              <button id="btn-drone-fwd" class="touch-btn" aria-label="Forward">▲</button>
+              <div></div>
+              <button id="btn-drone-left" class="touch-btn" aria-label="Left">◀</button>
+              <div class="touch-btn dpad-center"></div>
+              <button id="btn-drone-right" class="touch-btn" aria-label="Right">▶</button>
+              <div></div>
+              <button id="btn-drone-back" class="touch-btn" aria-label="Backward">▼</button>
+              <div></div>
+            </div>
+
+            <div class="drone-altitude-group">
+              <button id="btn-drone-up" class="touch-btn gas-btn" aria-label="Ascend">▲ UP</button>
+              <button id="btn-drone-down" class="touch-btn brake-btn" aria-label="Descend">▼ DOWN</button>
+            </div>
+          </div>
         </div>
 
-        <button id="btn-engine-ignite" class="tech-btn primary btn-ignite">
-          INITIATE IGNITION
-        </button>
+        <!-- Challenge 4: Jet Engine Ignition HUD -->
+        <div id="hud-engine" class="game-hud-block hidden">
+          <div class="engine-control-panel">
+            <div class="thrust-meter-box">
+              <div class="thrust-labels">
+                <span>ENGINE THRUST</span>
+                <span id="engine-thrust-val">0% (0 kN)</span>
+              </div>
+              <div class="thrust-track">
+                <div id="engine-thrust-bar"></div>
+              </div>
+            </div>
+
+            <div id="engine-slots">
+              <!-- Populated dynamically -->
+            </div>
+
+            <div id="engine-tray">
+              <!-- Component chips: Compressor, Combustion Chamber, Turbine, Exhaust Nozzle -->
+            </div>
+
+            <button id="btn-engine-ignite" class="tech-btn primary btn-ignite">
+              INITIATE IGNITION
+            </button>
+          </div>
+        </div>
+
+        <!-- Challenge 5: CAD Assembly Workshop HUD -->
+        <div id="hud-cad" class="game-hud-block hidden">
+          <div class="cad-panel">
+            <div class="cad-hint-bar">
+              SOLIDWORKS 2D MATES // SELECT PART &amp; CLICK SNAP
+            </div>
+
+            <div id="cad-parts-tray">
+              <!-- Populated dynamically -->
+            </div>
+
+            <button id="btn-cad-assemble" class="tech-btn primary">
+              SNAP &amp; MATE COMPONENT
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <!-- Challenge 5: CAD Assembly Workshop HUD -->
-    <div id="hud-cad" class="game-hud-bottom hidden">
-      <div class="cad-panel">
-        <div class="cad-hint-bar">
-          SOLIDWORKS 2D MATES // SELECT PART &amp; CLICK SNAP
-        </div>
-
-        <div id="cad-parts-tray">
-          <!-- Populated dynamically -->
-        </div>
-
-        <button id="btn-cad-assemble" class="tech-btn primary">
-          SNAP &amp; MATE COMPONENT
-        </button>
-      </div>
-    </div>
+    </main>
 
     <!-- Final Room: Birthday Reward & Certificate -->
     <section id="screen-reward" class="hidden">
@@ -214,7 +225,7 @@
         <h2 class="cert-main-title">CERTIFICATE OF ENGINEERING EXCELLENCE</h2>
         <div class="cert-awarded-text">Awarded to</div>
 
-        <div id="cert-recipient-name">ALEXANDER</div>
+        <div id="cert-recipient-name">ATHARV YADAV</div>
 
         <p class="cert-description">
           For successfully completing the Chess Protocol, Kart-X Racing Trial, 

@@ -161,12 +161,26 @@ export class ChessGame2D {
   renderBoard() {
     this.container.innerHTML = `
       <div class="chess-room-box">
-        <!-- Prominent Instruction Banner -->
-        <div class="chess-guide-card">
-          <div class="guide-title">♟️ CHESS PROTOCOL // CHECKMATE IN 3 MOVES</div>
-          <div class="guide-steps">
-            <span class="step-badge">1</span> Tap your White piece (e.g. <b>Queen on f3</b>) &nbsp;➔&nbsp;
-            <span class="step-badge">2</span> Tap a glowing green square to move!
+        <!-- Simple Gate 1 Instructions Banner -->
+        <div class="gate-guide-banner">
+          <div class="gate-guide-header">
+            <span class="gate-guide-badge">GATE 01</span>
+            <span class="gate-guide-title">♟️ CHESS PROTOCOL</span>
+            <span class="gate-guide-target">CHECKMATE IN 3 MOVES</span>
+          </div>
+          <div class="gate-guide-body">
+            <div class="guide-step-item">
+              <span class="step-num">1</span>
+              <span><b>Tap your White piece</b> (start with your Queen on <b>f3</b>) to select it.</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">2</span>
+              <span><b>Tap a glowing green dot</b> to move your piece to that square.</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">3</span>
+              <span>Deliver checkmate in 3 moves to win! (Need help? Tap <b>HINT</b> below).</span>
+            </div>
           </div>
         </div>
 

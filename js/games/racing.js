@@ -50,6 +50,29 @@ export class RacingGame2D {
   initDOM() {
     this.container.innerHTML = `
       <div class="racing-room-box">
+        <!-- Simple Gate 2 Instructions Banner -->
+        <div class="gate-guide-banner">
+          <div class="gate-guide-header">
+            <span class="gate-guide-badge">GATE 02</span>
+            <span class="gate-guide-title">🏎️ KART-X RACING TRIAL</span>
+            <span class="gate-guide-target">P1 FINISH OR 3 LAPS</span>
+          </div>
+          <div class="gate-guide-body">
+            <div class="guide-step-item">
+              <span class="step-num">🎯</span>
+              <span><b>HOW TO WIN:</b> Finish in <b>1st Place (P1)</b> ahead of rivals OR complete <b>3 full laps</b>!</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">📱</span>
+              <span><b>MOBILE:</b> Steer with <b>◀ LEFT / RIGHT ▶</b>. Drive with <b>⚡ GAS</b> &amp; <b>🛑 BRAKE</b>.</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">💻</span>
+              <span><b>DESKTOP:</b> Steer with <b>[A] / [D]</b> (or Arrows), Gas with <b>[W]</b>, Brake with <b>[Space]</b>.</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Interactive Canvas Area -->
         <div class="racing-canvas-wrapper">
           <canvas id="racing-canvas" width="800" height="600"></canvas>

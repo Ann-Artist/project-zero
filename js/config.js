@@ -5,7 +5,7 @@
 
 export const CONFIG = {
   // Friend's name shown on the final birthday certificate
-  friendName: "ALEXANDER",
+  friendName: "ATHARV YADAV",
 
   // Birthday message and certificate titles
   birthdayMessage: "Happy Birthday!",

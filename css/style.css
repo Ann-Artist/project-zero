@@ -4,8 +4,9 @@
  */
 
 :root {
+  color-scheme: dark;
   --bg-dark: #090c10;
-  --bg-panel: rgba(18, 22, 31, 0.92);
+  --bg-panel: rgba(18, 22, 31, 0.95);
   --steel-dark: #161b22;
   --steel-border: #30363d;
   --steel-border-light: #484f58;
@@ -27,6 +28,15 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* Enforce dark theme even if user device or browser preferences are set to light mode */
+@media (prefers-color-scheme: light) {
+  :root, html, body {
+    color-scheme: dark !important;
+    background-color: #090c10 !important;
+    color: #f0f6fc !important;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -43,6 +53,7 @@ body, html {
   color: var(--text-main);
   font-family: var(--font-sans);
   font-size: 14px;
+  color-scheme: dark;
 }
 
 #app-root {
@@ -176,16 +187,60 @@ body, html {
   box-shadow: 0 0 16px rgba(0, 230, 118, 0.5);
 }
 
-/* 2D Room Viewport Container */
-#room-viewport {
+/* ==========================================================================
+   UNIFIED RESPONSIVE GAME WORKSPACE
+   Canvas and touch controls stack naturally without overlap across all screen sizes.
+   ========================================================================== */
+#game-workspace {
   flex: 1;
   width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 12px calc(var(--safe-bottom) + 16px) 12px;
+}
+
+#room-viewport {
+  width: 100%;
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+#hud-deck {
+  width: 100%;
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.game-hud-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.game-hud-block.hidden {
+  display: none !important;
+}
+
+.hud-action-row {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 /* Confetti overlay canvas for Reward Room */

@@ -31,6 +31,29 @@ export class CadGame2D {
   initDOM() {
     this.container.innerHTML = `
       <div class="cad-room-box">
+        <!-- Simple Gate 5 Instructions Banner -->
+        <div class="gate-guide-banner">
+          <div class="gate-guide-header">
+            <span class="gate-guide-badge">GATE 05</span>
+            <span class="gate-guide-title">⚙️ CAD ASSEMBLY WORKSHOP</span>
+            <span class="gate-guide-target">MATE 4 MECHANICAL PARTS</span>
+          </div>
+          <div class="gate-guide-body">
+            <div class="guide-step-item">
+              <span class="step-num">⚠️</span>
+              <span><b>MATE CONSTRAINT:</b> The <b>Drive Shaft</b> must be installed first into the housing!</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">1</span>
+              <span><b>Tap a component</b> in the tray (or double-tap it) and press <b>SNAP &amp; MATE COMPONENT</b>.</span>
+            </div>
+            <div class="guide-step-item">
+              <span class="step-num">2</span>
+              <span>Install order: <b>1. Drive Shaft ➔ 2. Ball Bearing ➔ 3. Spur Gear ➔ 4. Mounting Bracket</b>.</span>
+            </div>
+          </div>
+        </div>
+
         <div class="cad-canvas-container">
           <canvas id="cad-canvas" width="760" height="340"></canvas>
         </div>
